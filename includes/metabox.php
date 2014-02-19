@@ -80,7 +80,7 @@ function edd_product_badges_render_meta_box() {
 
 	// Badge type
 	echo '<p><label for="_edd_product_badge_type">' .
-		__( 'Text/image based', 'edd-product-badges' ) . '<label><br />
+		__( 'Text/image based', 'edd-product-badges' ) . '</label><br />
 		<select name="_edd_product_badge_type" id="_edd_product_badge_type">
 		<option value="text"' . ( !isset( $badge_type ) || $badge_type == 'text' ? ' selected' : '' ) . '>' . __( 'Text based', 'edd-product-badges' ) . '</option>
 		<option value="image"' . ( isset( $badge_type ) && $badge_type == 'image' ? ' selected' : '' ) . '>' . __( 'Image based', 'edd-product-badges' ) . '</option>
