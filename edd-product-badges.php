@@ -96,24 +96,24 @@ if( !class_exists( 'EDD_Product_Badges' ) ) {
          */
         private function hooks() {
             // Edit plugin metalinks
-			add_filter( 'plugin_row_meta', array( $this, 'plugin_metalinks' ), null, 2 );
+            add_filter( 'plugin_row_meta', array( $this, 'plugin_metalinks' ), null, 2 );
 
-			// Handle licensing
-			if( class_exists( 'EDD_License' ) ) {
-				$license = new EDD_License( __FILE__, 'Product Badges', EDD_PRODUCT_BADGES_VER, 'Daniel J Griffiths' );
-			}
+            // Handle licensing
+            if( class_exists( 'EDD_License' ) ) {
+                $license = new EDD_License( __FILE__, 'Product Badges', EDD_PRODUCT_BADGES_VER, 'Daniel J Griffiths' );
+            }
 
-			// Enqueue JS
-			add_action( 'admin_enqueue_scripts', 'edd_product_badges_admin_scripts', 100 );
+            // Enqueue JS
+            add_action( 'admin_enqueue_scripts', 'edd_product_badges_admin_scripts', 100 );
 
-			// Add meta box
-			add_action( 'add_meta_boxes', 'edd_product_badges_add_meta_box' );
+            // Add meta box
+            add_action( 'add_meta_boxes', 'edd_product_badges_add_meta_box' );
 
-			// Save meta box fields
-			add_action( 'save_post', 'edd_product_badges_meta_box_save' );
+            // Save meta box fields
+            add_action( 'save_post', 'edd_product_badges_meta_box_save' );
 
-			// Display product badges
-			add_action( 'edd_download_before', array( $this, 'show_badge' ) );
+            // Display product badges
+            add_action( 'edd_download_before', array( $this, 'show_badge' ) );
         }
 
 
@@ -173,7 +173,7 @@ if( !class_exists( 'EDD_Product_Badges' ) ) {
             }
 
             return $links;
-		}
+        }
 
 
         /**
@@ -183,82 +183,82 @@ if( !class_exists( 'EDD_Product_Badges' ) ) {
          * @since       1.0.0
          * @return      void
          */
-		public function show_badge() {
-			$post_id = get_the_ID();
+        public function show_badge() {
+            $post_id = get_the_ID();
 
-			// Does this post have a badge?
-			$has_badge = get_post_meta( $post_id, '_edd_product_badge_enable', true ) ? true : false;
+            // Does this post have a badge?
+            $has_badge = get_post_meta( $post_id, '_edd_product_badge_enable', true ) ? true : false;
 
-			if( $has_badge ) {
-				
-				$type		= get_post_meta( $post_id, '_edd_product_badge_type', true );
-				$image		= get_post_meta( $post_id, '_edd_product_badge_image', true );
-				$text		= get_post_meta( $post_id, '_edd_product_badge_text', true );
+            if( $has_badge ) {
+                
+                $type       = get_post_meta( $post_id, '_edd_product_badge_type', true );
+                $image      = get_post_meta( $post_id, '_edd_product_badge_image', true );
+                $text       = get_post_meta( $post_id, '_edd_product_badge_text', true );
 
-				$margin_left= get_post_meta( $post_id, '_edd_product_badge_margin_left', true );
-				$margin_left= ( isset( $margin_left ) && !empty( $margin_left ) ? $margin_left : '0' );
-				$margin_top	= get_post_meta( $post_id, '_edd_product_badge_margin_top', true );
-				$margin_top	= ( isset( $margin_top ) && !empty( $margin_top ) ? $margin_top : '0' );
+                $margin_left= get_post_meta( $post_id, '_edd_product_badge_margin_left', true );
+                $margin_left= ( isset( $margin_left ) && !empty( $margin_left ) ? $margin_left : '0' );
+                $margin_top = get_post_meta( $post_id, '_edd_product_badge_margin_top', true );
+                $margin_top = ( isset( $margin_top ) && !empty( $margin_top ) ? $margin_top : '0' );
 
-				$opacity	= get_post_meta( $post_id, '_edd_product_badge_opacity', true );
-				$opacity	= ( isset( $opacity ) && !empty( $opacity ) ? $opacity : '1' );
+                $opacity    = get_post_meta( $post_id, '_edd_product_badge_opacity', true );
+                $opacity    = ( isset( $opacity ) && !empty( $opacity ) ? $opacity : '1' );
 
-				if( $type == 'image' && !empty( $image ) ) {
-					$width		= get_post_meta( $post_id, '_edd_product_badge_width', true );
-					$height		= get_post_meta( $post_id, '_edd_product_badge_height', true );
+                if( $type == 'image' && !empty( $image ) ) {
+                    $width      = get_post_meta( $post_id, '_edd_product_badge_width', true );
+                    $height     = get_post_meta( $post_id, '_edd_product_badge_height', true );
 
-					$style		 = ( isset( $width ) && !empty( $width ) ? 'width: ' . $width . ' ' : '' );
-					$style		.= ( isset( $height ) && !empty( $height ) ? 'height: ' . $height . ' ' : '' );
-					$style		.= 'margin-left: ' . $margin_left . 'px; ';
-					$style		.= 'margin-top: ' . $margin_top . 'px; ';
-					$style		.= 'opacity: ' . $opacity . ';';
+                    $style       = ( isset( $width ) && !empty( $width ) ? 'width: ' . $width . ' ' : '' );
+                    $style      .= ( isset( $height ) && !empty( $height ) ? 'height: ' . $height . ' ' : '' );
+                    $style      .= 'margin-left: ' . $margin_left . 'px; ';
+                    $style      .= 'margin-top: ' . $margin_top . 'px; ';
+                    $style      .= 'opacity: ' . $opacity . ';';
 
-					$badge	 = '<span class="product-badge" style="position: absolute;">';
-					$badge	.= '<img src="' . $image . '" style="' . $style . '" />';
-					$badge	.= '</span>';
+                    $badge   = '<span class="product-badge" style="position: absolute;">';
+                    $badge  .= '<img src="' . $image . '" style="' . $style . '" />';
+                    $badge  .= '</span>';
 
-					echo $badge;	
-				} elseif( $type == 'text' && !empty( $text ) ) {
-					$padding_top	= get_post_meta( $post_id, '_edd_product_badge_padding_top', true );
-					$padding_top	= ( isset( $padding_top ) && !empty( $padding_top ) ? $padding_top . 'px' : '0' );
-					$padding_right	= get_post_meta( $post_id, '_edd_product_badge_padding_right', true );
-					$padding_right	= ( isset( $padding_right ) && !empty( $padding_right ) ? $padding_right . 'px' : '0' );
-					$padding_bottom	= get_post_meta( $post_id, '_edd_product_badge_padding_bottom', true );
-					$padding_bottom	= ( isset( $padding_bottom ) && !empty( $padding_bottom ) ? $padding_bottom . 'px' : '0' );
-					$padding_left	= get_post_meta( $post_id, '_edd_product_badge_padding_left', true );
-					$padding_left	= ( isset( $padding_left ) && !empty( $padding_left ) ? $padding_left . 'px' : '0' );
+                    echo $badge;    
+                } elseif( $type == 'text' && !empty( $text ) ) {
+                    $padding_top    = get_post_meta( $post_id, '_edd_product_badge_padding_top', true );
+                    $padding_top    = ( isset( $padding_top ) && !empty( $padding_top ) ? $padding_top . 'px' : '0' );
+                    $padding_right  = get_post_meta( $post_id, '_edd_product_badge_padding_right', true );
+                    $padding_right  = ( isset( $padding_right ) && !empty( $padding_right ) ? $padding_right . 'px' : '0' );
+                    $padding_bottom = get_post_meta( $post_id, '_edd_product_badge_padding_bottom', true );
+                    $padding_bottom = ( isset( $padding_bottom ) && !empty( $padding_bottom ) ? $padding_bottom . 'px' : '0' );
+                    $padding_left   = get_post_meta( $post_id, '_edd_product_badge_padding_left', true );
+                    $padding_left   = ( isset( $padding_left ) && !empty( $padding_left ) ? $padding_left . 'px' : '0' );
 
-					$radius_tl		= get_post_meta( $post_id, '_edd_product_badge_radius_tl', true );
-					$radius_tl		= ( isset( $radius_tl ) && !empty( $radius_tl ) ? $radius_tl . 'px' : '0' );
-					$radius_tr		= get_post_meta( $post_id, '_edd_product_badge_radius_tr', true );
-					$radius_tr		= ( isset( $radius_tr ) && !empty( $radius_tr ) ? $radius_tr . 'px' : '0' );
-					$radius_bl		= get_post_meta( $post_id, '_edd_product_badge_radius_bl', true );
-					$radius_bl		= ( isset( $radius_bl ) && !empty( $radius_bl ) ? $radius_bl . 'px' : '0' );
-					$radius_br		= get_post_meta( $post_id, '_edd_product_badge_radius_br', true );
-					$radius_br		= ( isset( $radius_br ) && !empty( $radius_br ) ? $radius_br . 'px' : '0' );
+                    $radius_tl      = get_post_meta( $post_id, '_edd_product_badge_radius_tl', true );
+                    $radius_tl      = ( isset( $radius_tl ) && !empty( $radius_tl ) ? $radius_tl . 'px' : '0' );
+                    $radius_tr      = get_post_meta( $post_id, '_edd_product_badge_radius_tr', true );
+                    $radius_tr      = ( isset( $radius_tr ) && !empty( $radius_tr ) ? $radius_tr . 'px' : '0' );
+                    $radius_bl      = get_post_meta( $post_id, '_edd_product_badge_radius_bl', true );
+                    $radius_bl      = ( isset( $radius_bl ) && !empty( $radius_bl ) ? $radius_bl . 'px' : '0' );
+                    $radius_br      = get_post_meta( $post_id, '_edd_product_badge_radius_br', true );
+                    $radius_br      = ( isset( $radius_br ) && !empty( $radius_br ) ? $radius_br . 'px' : '0' );
 
-					$text_color		= get_post_meta( $post_id, '_edd_product_badge_text_color', true );
-					$background		= get_post_meta( $post_id, '_edd_product_badge_background', true );
+                    $text_color     = get_post_meta( $post_id, '_edd_product_badge_text_color', true );
+                    $background     = get_post_meta( $post_id, '_edd_product_badge_background', true );
 
-					$style		 = 'padding: ' . $padding_top . ' ' . $padding_right . ' ' . $padding_bottom . ' ' . $padding_left . '; ';
-					$style		.= 'border-radius: ' . $radius_tl . ' ' . $radius_tr . ' ' . $radius_br . ' ' . $radius_bl . '; ';
-					$style		.= '-moz-border-radius: ' . $radius_tl . ' ' . $radius_tr . ' ' . $radius_br . ' ' . $radius_bl . '; ';
-					$style		.= '-webkit-border-radius: ' . $radius_tl . ' ' . $radius_tr . ' ' . $radius_br . ' ' . $radius_bl . '; ';
-					$style		.= 'color: ' . $text_color . '; ';
-					$style		.= 'background: ' . $background . '; ';
-					$style		.= 'margin-left: ' . $margin_left . 'px; ';
-					$style		.= 'margin-top: ' . $margin_top . 'px; ';
-					$style		.= 'opacity: ' . $opacity . ';';
+                    $style       = 'padding: ' . $padding_top . ' ' . $padding_right . ' ' . $padding_bottom . ' ' . $padding_left . '; ';
+                    $style      .= 'border-radius: ' . $radius_tl . ' ' . $radius_tr . ' ' . $radius_br . ' ' . $radius_bl . '; ';
+                    $style      .= '-moz-border-radius: ' . $radius_tl . ' ' . $radius_tr . ' ' . $radius_br . ' ' . $radius_bl . '; ';
+                    $style      .= '-webkit-border-radius: ' . $radius_tl . ' ' . $radius_tr . ' ' . $radius_br . ' ' . $radius_bl . '; ';
+                    $style      .= 'color: ' . $text_color . '; ';
+                    $style      .= 'background: ' . $background . '; ';
+                    $style      .= 'margin-left: ' . $margin_left . 'px; ';
+                    $style      .= 'margin-top: ' . $margin_top . 'px; ';
+                    $style      .= 'opacity: ' . $opacity . ';';
 
-					$badge	 = '<span class="product-badge" style="position: absolute; ' . $style . '">';
-					$badge	.= $text;
-					$badge	.= '</span>';
+                    $badge   = '<span class="product-badge" style="position: absolute; ' . $style . '">';
+                    $badge  .= $text;
+                    $badge  .= '</span>';
 
-					echo $badge;
-				}
-			}
-		}
-	}
+                    echo $badge;
+                }
+            }
+        }
+    }
 }
 
 
