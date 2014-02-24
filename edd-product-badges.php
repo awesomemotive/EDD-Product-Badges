@@ -271,7 +271,9 @@ if( !class_exists( 'EDD_Product_Badges' ) ) {
  */
 function EDD_Product_Badges_load() {
     if( !class_exists( 'Easy_Digital_Downloads' ) ) {
-        require_once( 'includes/class.s214-edd-activation.php' );
+        if( !class_exists( 'S214_EDD_Activation' ) ) {
+            require_once( 'includes/class.s214-edd-activation.php' );
+        }
 
         $activation = new S214_EDD_Activation( plugin_dir_path( __FILE__ ), basename( __FILE__ ) );
         $activation = $activation->run();
