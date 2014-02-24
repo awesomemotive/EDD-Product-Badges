@@ -271,24 +271,12 @@ if( !class_exists( 'EDD_Product_Badges' ) ) {
  */
 function EDD_Product_Badges_load() {
     if( !class_exists( 'Easy_Digital_Downloads' ) ) {
-        deactivate_plugins( __FILE__ );
-        unset( $_GET['activate'] );
+        require_once( 'includes/class.s214-edd-activation.php' );
 
-        // Display notice
-        add_action( 'admin_notices', 'EDD_Product_Badges_missing_edd_notice' );
+        $activation = new S214_EDD_Activation( plugin_dir_path( __FILE__ ), basename( __FILE__ ) );
+        $activation = $activation->run();
     } else {
         return EDD_Product_Badges::instance();
     }
 }
 add_action( 'plugins_loaded', 'EDD_Product_Badges_load' );
-
-
-/**
- * We need Easy Digital Downloads... if it isn't present, notify the user!
- *
- * @since       1.0.0
- * @return      void
- */
-function EDD_Product_Badges_missing_edd_notice() {
-    echo '<div class="error"><p>' . __( 'Product Badges requires Easy Digital Downloads! Please install it to continue!', 'edd-product-badges' ) . '</p></div>';
-}
