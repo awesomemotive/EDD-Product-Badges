@@ -175,7 +175,7 @@ function edd_product_badges_render_meta_box() {
     // Badge background color
     echo '<p' . $badge_background_css . '><label for="_edd_product_badge_background">' .
         __( 'Badge background color', 'edd-product-badges' ) . '</label><br />
-        <input type="text" class="edd-color-picker" id="_edd_product_badge_background" name="_edd_product_badge_background" value="' . ( isset( $badge_background ) && !empty( $badge_background ) ? $badge_background : '#ff0000' ) . '" data-default-color="#ff0000" />
+        <input type="text" class="edd-color-picker" id="_edd_product_badge_background" name="_edd_product_badge_background" value="' . ( isset( $badge_background ) && !empty( $badge_background ) ? $badge_background : '#2794da' ) . '" data-default-color="#ff0000" />
         </p>';
 
     // Badge size
